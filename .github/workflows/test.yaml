@@ -2,7 +2,7 @@ name: Example
 on: [push]
 jobs:
   tests:
-    name: python
+    name: Run domain tests
     runs-on: ubuntu-latest
 
     steps:
@@ -21,4 +21,4 @@ jobs:
 
       - name: Run tests
         # For example, using `pytest`
-        run: uv run pytest tests
+        run: uv run pytest domains -vv

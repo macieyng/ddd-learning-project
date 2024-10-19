@@ -26,10 +26,10 @@ Each directory and file serves a specific purpose in the project:
     ```
 
 2. Create a virtual environment and activate it:
-    # TODO: Add instructions for creating a virtual environment
+    >TODO: Add instructions for creating a virtual environment
 
 3. Install the dependencies:
-    # TODO: Add instructions for installing dependencies
+    >TODO: Add instructions for installing dependencies
 
 
 ## Running Tests

@@ -14,3 +14,9 @@ dependencies = [
 [tool.pytest]
 addopts = "-v --cov=uv --cov-report=term-missing --cov-report=html --random-order"
 testpaths = "**/tests/**"
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.7.0",
+    "mypy>=1.12.1",
+]

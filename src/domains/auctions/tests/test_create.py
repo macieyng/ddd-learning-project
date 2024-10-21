@@ -7,15 +7,12 @@ import datetime as dt
 
 import pytest
 
-from src.domains.auctions.service import (
-    AuctionDTO,
-    AuctionObject,
-    AuctionService,
-    AuctionStatus,
-    AuctionUpTime,
-    AuctionValidationError,
-    UserObject,
-)
+from src.domains.auctions.dtos import AuctionDTO
+from src.domains.auctions.enums import AuctionStatus, AuctionUpTime
+from src.domains.auctions.errors import AuctionValidationError
+from src.domains.auctions.objects import AuctionObject
+from src.domains.auctions.service import AuctionService
+from src.domains.users import UserObject
 
 from .stubs import NaiveAuctionRepo, NaiveIdGenerator, NaiveUserRepo
 

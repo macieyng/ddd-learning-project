@@ -2,18 +2,19 @@ import datetime as dt
 import typing as t
 from dataclasses import dataclass
 
+from src.common.interfaces.objects import IAuctionObject
+from src.common.interfaces.repositories.auctions import IAuctionRepo
+from src.common.interfaces.repositories.base import IIdGenerator
+from src.common.interfaces.repositories.users import IUserRepo
 from src.domains.auctions.service import (
     AuctionObject,
-    AuctionRepoInterface,
     AuctionStatus,
     AuctionUpTime,
-    IdGeneratorInterface,
-    UserObject,
-    UserRepoInterface,
 )
+from src.domains.users import UserObject
 
 
-class NaiveIdGenerator(IdGeneratorInterface):
+class NaiveIdGenerator(IIdGenerator):
     def generate_id(self) -> str:
         return "id"
 
@@ -50,7 +51,7 @@ class NaiveAuctionRepoObject:
             snapshot_id=snapshot_id,
         )
 
-    def to_auction_object(self) -> AuctionObject:
+    def to_auction_object(self) -> IAuctionObject:
         return AuctionObject(
             auction_id=self.auction_id,
             name=self.name,
@@ -61,31 +62,31 @@ class NaiveAuctionRepoObject:
             end_date=dt.datetime.fromisoformat(self.end_date),
             current_bid=self.current_bid,
             up_time=self.up_time,
-        )
+        )  # type: ignore[return-value]
 
 
-class NaiveAuctionRepo(AuctionRepoInterface):
-    def __init__(self, id_generator: IdGeneratorInterface):
+class NaiveAuctionRepo(IAuctionRepo):
+    def __init__(self, id_generator: IIdGenerator):
         self.auctions: dict[str, NaiveAuctionRepoObject] = {}
         self.id_generator = id_generator
 
     def get_new_id(self):
         return self.id_generator.generate_id()
 
-    def create_auction(self, auction: AuctionObject) -> AuctionObject:
+    def create_auction(self, auction: IAuctionObject) -> IAuctionObject:
         auction_repo_object = NaiveAuctionRepoObject.from_auction_object(
-            auction,
+            auction,  # type: ignore[arg-type]
             self.get_new_id(),
         )
         self.auctions[auction.auction_id] = auction_repo_object
         return auction_repo_object.to_auction_object()
 
-    def get_auction(self, auction_id: str) -> AuctionObject:
+    def get_auction(self, auction_id: str) -> IAuctionObject:
         return self.auctions[auction_id].to_auction_object()
 
 
-class NaiveUserRepo(UserRepoInterface):
-    def __init__(self, id_generator: IdGeneratorInterface):
+class NaiveUserRepo(IUserRepo):
+    def __init__(self, id_generator: IIdGenerator):
         self.users: dict[str, UserObject] = {}
         self.id_generator = id_generator
 

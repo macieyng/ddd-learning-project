@@ -4,6 +4,7 @@ We use pytest for testing.
 """
 
 from src.domains.auctions.service import AuctionService
+from src.domains.users import UserObject
 
 from .stubs import (
     AuctionStatus,
@@ -12,7 +13,6 @@ from .stubs import (
     NaiveAuctionRepoObject,
     NaiveIdGenerator,
     NaiveUserRepo,
-    UserObject,
 )
 
 

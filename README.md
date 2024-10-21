@@ -38,3 +38,7 @@ To run the tests, use the following command:
 ```sh
 uv run pytest
 ```
+
+
+## Current Issues
+- Protocols and dataclasses doesn't seem to work when mypy is doing type checking. It's either not possible or not correct. Anyway I need to learn more about typing, protocols and dataclasses in Python.
